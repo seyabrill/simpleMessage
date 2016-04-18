@@ -11,7 +11,6 @@
   ],
   "resource paths": "",
   "stackFiles": [
-    "simpleMessages.livecode",
-    "Calculator.livecode"
+    "simpleMessages.livecode"
   ]
 }
