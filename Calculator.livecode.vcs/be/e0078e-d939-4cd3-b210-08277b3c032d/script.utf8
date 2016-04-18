@@ -1,0 +1,3 @@
+on mouseUp
+   operatorPressed the short name of me
+end mouseUp

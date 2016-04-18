@@ -1,0 +1,3 @@
+on mouseUp
+   togglePressed
+end mouseUp

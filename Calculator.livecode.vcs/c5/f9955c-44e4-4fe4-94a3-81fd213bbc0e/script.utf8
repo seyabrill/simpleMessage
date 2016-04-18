@@ -1,0 +1,101 @@
+local sCurrentOperator, sCurrentTotal, sNewNumber
+
+command operatorPressed pOperator
+   set the showBorder of button "divide" to false
+   set the showBorder of button "multiply" to false
+   set the showBorder of button "minus" to false
+   set the showBorder of button "plus" to false
+   
+   set the borderColor of button pOperator to black
+   set the showBorder of button pOperator to true
+   
+   ## Store the operator, current total and start a new number
+   put pOperator into sCurrentOperator
+   put field "display" into sCurrentTotal
+   put true into sNewNumber
+end operatorPressed
+
+command numberPressed pNumber
+   ## Check if a new number is to start
+   if sNewNumber is true or field "display" is 0 then 
+      put pNumber into field "display"
+      put false into sNewNumber
+   else 
+      put pNumber after field "display"
+   end if
+   
+   set the label of button "clear" to "C"
+   
+end numberPressed
+
+command percentagePressed
+   put field "display" into tCurrentValue
+   put tCurrentValue / 100 into field "display"
+   
+   ## Store the current total
+   put field "display" into sCurrentTotal
+end percentagePressed
+
+command togglePressed
+   put field "display" into tCurrentValue
+   put tCurrentValue  * -1 into field "display"
+   
+   ## Store the current total
+   put field "display" into sCurrentTotal
+end togglePressed
+
+on clearPressed
+   ## Clear the current value
+   put 0 into field "display"
+   
+   ## Start a new number
+   put true into sNewNumber
+   
+   if the label of button "clear" is "AC" then
+      ## Clear the stored total
+      put 0 into sCurrentTotal
+      
+      ## Clear the current operator
+      if sCurrentOperator is not empty then set the showBorder of button sCurrentOperator to false
+      put empty into sCurrentOperator
+   else
+      ## Change the mode to "AC"
+      set the label of button "clear" to "AC"
+   end if
+end clearPressed
+
+command equalsPressed
+   ## if no operator has been pressed there is no calculation to do
+   if sCurrentOperator is empty then 
+   exit equalsPressed
+   end if
+   ## store the value in the display field
+   put field "display" into sCurrentValue
+   
+   ## check which operator was chosen
+   ## perform the calculation using the stored total, stored operator and current value
+   switch sCurrentOperator
+      case "divide"
+         put sCurrentTotal / sCurrentValue into sCurrentTotal
+         break 
+      case "multiply"
+         put sCurrentTotal * sCurrentValue into sCurrentTotal
+         break
+      case "minus"
+         put sCurrentTotal - sCurrentValue into sCurrentTotal
+         break
+      case "plus"
+         put sCurrentTotal + sCurrentValue into sCurrentTotal
+         break
+   end switch
+   
+   ## put the result into the "display" field
+   put sCurrentTotal into field "display"
+   
+   ## clear the operator button and stored values
+   set the ShowBorder of button sCurrentOperator to false
+   put empty into sCurrentOperator
+   put true into sNewNumber   
+   
+   set the label of button "clear" to "AC"
+end equalsPressed
