@@ -1,0 +1,16 @@
+{
+  "build path": "",
+  "name": "simpleMessage",
+  "plugins": [
+    "cRevGeneral",
+    "cREVGeometryCache",
+    "cRevStandaloneSettings",
+    "dataviewProps",
+    "dgProps",
+    "GLX2"
+  ],
+  "resource paths": "",
+  "stackFiles": [
+    "simpleMessages.livecode"
+  ]
+}

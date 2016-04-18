@@ -1,0 +1,18 @@
+on mouseUp
+   set the text of field "displayMessage" to the text of field "enterMessage"
+   
+   /*****send the message to the online app*****/
+   local tName, tMessage, tDataToPost
+   
+   put "Your Name" into tName
+   put the text of field "enterMessage" into tMessage
+   
+   put libURLFormData("name", tName, "message", tMessage) into tDataToPost
+   post tDataToPost to URL "http://lc1582.on-rev.com/revchat/setchat"
+   /***********************************************/
+   
+   set the text of field "enterMessage" to empty
+   
+   answer "Check the cloud for your message"
+   
+end mouseUp
