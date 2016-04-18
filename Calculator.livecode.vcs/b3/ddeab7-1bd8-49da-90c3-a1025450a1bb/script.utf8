@@ -1,3 +1,0 @@
-on mouseUp
-   numberPressed short name of me
-end mouseUp
